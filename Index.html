@@ -1,0 +1,276 @@
+<!
+  <!DOCTYPE html>
+  <html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TikTok Interface</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #f0f2f5;
+        color: #333;
+      }
+
+      .container {
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 20px;
+        background-color: #fff;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        border-radius: 10px;
+      }
+
+      /* Barra de navegação */
+      nav ul {
+        list-style-type: none;
+        padding: 0;
+        margin: 0;
+        display: flex;
+        justify-content: space-around;
+        background-color: #007bff;
+        border-radius: 10px;
+        padding: 10px;
+      }
+
+      nav ul li {
+        display: inline;
+      }
+
+      nav ul li a {
+        color: #fff;
+        text-decoration: none;
+        font-weight: bold;
+      }
+
+      nav ul li a:hover {
+        text-decoration: underline;
+      }
+
+      /* Área de exibição de vídeos */
+      #video-feed {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+        margin: 20px 0;
+      }
+
+      video {
+        width: 100%;
+        border-radius: 10px;
+      }
+
+      /* Botões de ação */
+      .actions {
+        display: flex;
+        justify-content: space-around;
+        margin: 20px 0;
+      }
+
+      .actions button {
+        padding: 10px 20px;
+        border: none;
+        background-color: #007bff;
+        color: #fff;
+        border-radius: 5px;
+        cursor: pointer;
+      }
+
+      .actions button:hover {
+        background-color: #0056b3;
+      }
+
+      /* Campos de mensagens */
+      #messages {
+        margin: 20px 0;
+      }
+
+      #messages h2 {
+        text-align: center;
+      }
+
+      #messages form {
+        display: grid;
+        gap: 10px;
+      }
+
+      #messages textarea {
+        width: 100%;
+        padding: 10px;
+        border-radius: 5px;
+        border: 1px solid #ccc;
+      }
+
+      #messages button {
+        padding: 10px;
+        border: none;
+        background-color: #28a745;
+        color: #fff;
+        border-radius: 5px;
+        cursor: pointer;
+      }
+
+      #messages button:hover {
+        background-color: #218838;
+      }
+
+      /* Modal */
+      .modal {
+        display: none;
+        position: fixed;
+        z-index: 1;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+      }
+
+      .modal-content {
+        background-color: #fefefe;
+        margin: 15% auto;
+        padding: 20px;
+        border-radius: 5px;
+        max-width: 500px;
+      }
+
+      .close {
+        color: #aaa;
+        float: right;
+        font-size: 28px;
+        font-weight: bold;
+      }
+
+      .close:hover,
+      .close:focus {
+        color: black;
+        text-decoration: none;
+        cursor: pointer;
+      }
+    </style>
+  </head>
+  <body>
+
+    <div class="container">
+      <!-- Barra de navegação -->
+      <nav>
+        <ul>
+          <li><a href="#">Início</a></li>
+          <li><a href="#">Explorar</a></li>
+          <li><a href="#">Favoritos</a></li>
+          <li><a href="#" id="profile">Perfil</a></li>
+        </ul>
+      </nav>
+
+      <!-- Área de exibição de vídeos -->
+      <div id="video-feed">
+        <video src="video1.mp4" controls alt="Video 1"></video>
+        <video src="video2.mp4" controls alt="Video 2"></video>
+        <video src="video3.mp4" controls alt="Video 3"></video>
+      </div>
+
+      <!-- Botões de ação -->
+      <div class="actions">
+        <button id="upload-video">Upload de Vídeo</button>
+        <button id="upload-foto">Upload de Foto</button>
+      </div>
+
+      <!-- Campos de mensagens -->
+      <div id="messages">
+        <h2>Envie suas mensagens</h2>
+        <form id="message-form">
+          <textarea placeholder="Mensagem 1"></textarea>
+          <textarea placeholder="Mensagem 2"></textarea>
+          <textarea placeholder="Mensagem 3"></textarea>
+          <textarea placeholder="Mensagem 4"></textarea>
+          <textarea placeholder="Mensagem 5"></textarea>
+          <textarea placeholder="Mensagem 6"></textarea>
+          <textarea placeholder="Mensagem 7"></textarea>
+          <textarea placeholder="Mensagem 8"></textarea>
+          <textarea placeholder="Mensagem 9"></textarea>
+          <textarea placeholder="Mensagem 10"></textarea>
+          <button type="submit">Enviar Mensagens</button>
+        </form>
+      </div>
+
+      <!-- Modal de login -->
+      <div id="login-modal" class="modal">
+        <div class="modal-content">
+          <span class="close">&times;</span>
+          <h2>Login</h2>
+          <form id="login-form">
+            <input type="text" placeholder="Nome de usuário" required>
+            <input type="password" placeholder="Senha" required>
+            <button type="submit">Entrar</button>
+          </form>
+        </div>
+      </div>
+
+      <!-- Modal de compartilhamento -->
+      <div id="share-modal" class="modal">
+        <div class="modal-content">
+          <span class="close">&times;</span>
+          <h2>Compartilhar</h2>
+          <!-- Formulário para compartilhar -->
+        </div>
+      </div>
+    </div>
+
+    <script>
+      document.addEventListener('DOMContentLoaded', (event) => {
+        // Abrir modal de login ao clicar no botão "Perfil"
+        document.getElementById('profile').addEventListener('click', function() {
+          document.getElementById('login-modal').style.display = 'block';
+        });
+
+        // Fechar modal ao clicar no botão "Fechar"
+        document.querySelectorAll('.close').forEach(function(closeButton) {
+          closeButton.addEventListener('click', function() {
+            this.parentElement.parentElement.style.display = 'none';
+          });
+        });
+
+        // Simular login
+        document.getElementById('login-form').addEventListener('submit', function(event) {
+          event.preventDefault();
+          alert('Login bem-sucedido!');
+          document.getElementById('login-modal').style.display = 'none';
+        });
+
+        // Abrir modal de compartilhamento ao clicar em uma postagem
+        document.getElementById('video-feed').addEventListener('click', function(event) {
+          if (event.target.tagName === 'VIDEO') {
+            document.getElementById('share-modal').style.display = 'block';
+          }
+        });
+
+        // Carregar vídeos adicionais ao rolar para baixo
+        window.addEventListener('scroll',
+          function() {
+            if (window.innerHeight + window.scrollY >= document.body.offsetHeight) {
+              // Adicione aqui a lógica para carregar mais vídeos
+            }
+          });
+
+        // Enviar mensagens
+        document.getElementById('message-form').addEventListener('submit',
+          function(event) {
+            event.preventDefault();
+            const messages = Array.from(document.querySelectorAll('#message-form textarea'))
+            .map(textarea => textarea.value.trim())
+            .filter(message => message !== '');
+
+            if (messages.length > 0) {
+              console.log('Mensagens enviadas:', messages);
+              alert('Mensagens enviadas:\n' + messages.join('\n'));
+              document.getElementById('message-form').reset();
+            } else {
+              alert('Por favor, insira pelo menos uma mensagem.');
+            }
+          });
+      });
+    </script>
+  </body>
+</html>
